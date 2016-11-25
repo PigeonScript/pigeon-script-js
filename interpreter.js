@@ -78,7 +78,7 @@ var parse = function(code) {
 			
 			var number = "";
 			
-			while (pointer < code.length && (c() in digits || (c() == '.' && '.' ! in number)) {
+			while ((pointer < code.length)&&((c() in digits)||(c() == '.' && !('.' in number)))) {
 				number += c();
 				pointer += 1;
 			}
@@ -86,7 +86,7 @@ var parse = function(code) {
 			parsed.push(["push", toNum(number)]);
 		}
 			
-		if (c() in functions) {
+		if(c() in functions) {
 			parsed.push(["function", functions.c()]);
 		}
 		
