@@ -1,10 +1,9 @@
 var stack = [];
-var functions = {
-								'+':sum,
-								'-':sub,
-								'*':mult,
-								'/':div
-								};
+var functions = {'+':sum,
+		'-':sub,
+		'*':mult,
+		'/':div
+		};
 
 var digits = [0,1,2,3,4,5,6,7,8,9];
 
@@ -88,7 +87,7 @@ var parse = function(code) {
 		}
 			
 		if (c() in functions) {
-			parsed.push(["function", functions[c()]]);
+			parsed.push(["function", functions.c()]);
 		}
 		
 		pointer += 1;
