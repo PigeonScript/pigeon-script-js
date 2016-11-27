@@ -1,4 +1,5 @@
 var stack = [];
+
 var functions = {'+':sum,
 		'-':sub,
 		'*':mult,
@@ -7,8 +8,10 @@ var functions = {'+':sum,
 
 var digits = [0,1,2,3,4,5,6,7,8,9];
 
+var valid_commands = '+-*/';
+
 var toNum = function(input){
-	if(isNan(Number(input))) {
+	if(isNaN(Number(input))) {
 		return input;
 	} else {
 		return Number(input);
@@ -85,14 +88,13 @@ var parse = function(code) {
 			pointer -= 1;
 			parsed.push(["push", toNum(number)]);
 		}
-			
-		if(c() in functions) {
-			parsed.push(["function", functions.c()]);
+
+		if(valid_commands.indexOf(c())+1) {
+			parsed.push(["function", functions[c()]]);
 		}
 		
 		pointer += 1;
-		
-		}
+
 	}
 	return parsed;
 }
@@ -112,14 +114,12 @@ var execute = function(code) {
 		}
 		
 		if (c()[0] == "function") {
+			console.log(c());
 			stack.push(c()[1]());
 		}
 		
 		pointer += 1;
 		
-	}
-	if (stack.length) {
-		print(stack[stack.length-1]);
 	}
 }
 
