@@ -59,7 +59,7 @@ var div = function() {
 	}
 }
 
-var exp() = function() {
+var exp = function() {
 	if(stack.length > 1) {
 		var a = pop();
 		var b = pop();
