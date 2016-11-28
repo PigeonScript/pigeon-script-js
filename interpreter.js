@@ -70,6 +70,12 @@ var exp = function() {
 	}
 }
 
+var mod = function() {
+	a = pop();
+	b = pop();
+	return b % a;
+}
+
 var print = function() {
 	output(pop());
 }
@@ -86,7 +92,8 @@ var functions = {
 	'-':sub,
 	'*':mult,
 	'/':div,
-	'^':exp
+	'^':exp,
+	'%':mod
 };
 
 var nonreturn = {
