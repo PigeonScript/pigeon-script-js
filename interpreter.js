@@ -1,14 +1,13 @@
 var stack = [];
 
-var functions = {'+':sum,
+var functions = {
+		'+':sum,
 		'-':sub,
 		'*':mult,
 		'/':div
 		};
 
 var digits = [0,1,2,3,4,5,6,7,8,9];
-
-var valid_commands = '+-*/';
 
 var toNum = function(input){
 	if(isNaN(Number(input))) {
@@ -89,7 +88,7 @@ var parse = function(code) {
 			parsed.push(["push", toNum(number)]);
 		}
 
-		if(valid_commands.indexOf(c())+1) {
+		if(c() in functions) {
 			parsed.push(["function", functions[c()]]);
 		}
 		
