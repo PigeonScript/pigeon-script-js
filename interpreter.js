@@ -56,11 +56,15 @@ var print = function(data) {
 }
 
 var functions = {
-		'+':sum,
-		'-':sub,
-		'*':mult,
-		'/':div
-		};
+	'+':sum,
+	'-':sub,
+	'*':mult,
+	'/':div,
+};
+
+var nonreturn = {
+	'p':print
+};
 
 var digits = [0,1,2,3,4,5,6,7,8,9];
 
@@ -92,6 +96,10 @@ var parse = function(code) {
 			parsed.push(["function", functions[c()]]);
 		}
 		
+		if(c() in nonreturn) {
+			parsed.push(["function", nonreturn[c()]]);
+		}
+		
 		pointer += 1;
 
 	}
@@ -107,14 +115,16 @@ var execute = function(code) {
 	}
 	
 	while (pointer < code.length) {
-		
-		if (c[0] == "push") {
+		if (c()[0] == "push") {
 			stack.push(c()[1]);
 		}
 		
 		if (c()[0] == "function") {
-			console.log(c());
 			stack.push(c()[1]());
+		}
+		
+		if (c()[0] == "nonreturn") {
+			c()[1];
 		}
 		
 		pointer += 1;
