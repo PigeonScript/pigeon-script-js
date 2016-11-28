@@ -1,14 +1,5 @@
 var stack = [];
 
-var functions = {
-		'+':sum,
-		'-':sub,
-		'*':mult,
-		'/':div
-		};
-
-var digits = [0,1,2,3,4,5,6,7,8,9];
-
 var toNum = function(input){
 	if(isNaN(Number(input))) {
 		return input;
@@ -63,6 +54,15 @@ var print = function(data) {
 	li.appendChild(document.createTextNode(data));
 	ul.appendChild(li);
 }
+
+var functions = {
+		'+':sum,
+		'-':sub,
+		'*':mult,
+		'/':div
+		};
+
+var digits = [0,1,2,3,4,5,6,7,8,9];
 
 var parse = function(code) {
 	
