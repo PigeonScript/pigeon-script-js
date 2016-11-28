@@ -55,7 +55,18 @@ var div = function() {
   if(stack.length) {
     return 1 / (pop() / pop());
 	} else {
-    return 1 / pow();
+    return 1 / pop();
+	}
+}
+
+var exp() = function() {
+	if(stack.length > 1) {
+		var a = pop();
+		var b = pop();
+		return pow(b, a);
+	} else {
+		var a = pop();
+		return pow(a, a);
 	}
 }
 
@@ -75,6 +86,7 @@ var functions = {
 	'-':sub,
 	'*':mult,
 	'/':div,
+	'^':exp
 };
 
 var nonreturn = {
