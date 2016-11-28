@@ -1,3 +1,14 @@
+function strip(str, remove) {
+	// I needed this python feature...
+  while (str.length > 0 && remove.indexOf(str.charAt(0)) != -1) {
+    str = str.substr(1);
+  }
+  while (str.length > 0 && remove.indexOf(str.charAt(str.length - 1)) != -1) {
+    str = str.substr(0, str.length - 1);
+  }
+  return str;
+}
+
 var stack = [];
 
 var toNum = function(input){
@@ -44,11 +55,32 @@ var div = function() {
   if(stack.length) {
     return 1 / (pop() / pop());
 	} else {
-    return 1 / pow();
+    return 1 / pop();
 	}
 }
 
-var print = function(data) {
+var exp = function() {
+	if(stack.length > 1) {
+		var a = pop();
+		var b = pop();
+		return pow(b, a);
+	} else {
+		var a = pop();
+		return pow(a, a);
+	}
+}
+
+var mod = function() {
+	a = pop();
+	b = pop();
+	return b % a;
+}
+
+var print = function() {
+	output(pop());
+}
+
+var output = function(data) {
 	var ul = document.getElementById("list");
 	var li = document.createElement("li");
 	li.appendChild(document.createTextNode(data));
@@ -60,6 +92,8 @@ var functions = {
 	'-':sub,
 	'*':mult,
 	'/':div,
+	'^':exp,
+	'%':mod
 };
 
 var nonreturn = {
@@ -91,13 +125,27 @@ var parse = function(code) {
 			pointer -= 1;
 			parsed.push(["push", toNum(number)]);
 		}
+		
+		if(c() == '"') {
+			
+			var string = "";
+			
+			while (pointer < code.length) {
+				string += c();
+				pointer += 1;
+				if((pointer >= code.length)||(c()=='"')) {
+					break
+				}
+			}
+			parsed.push(["push", strip(string, '"')]);
+		}
 
 		if(c() in functions) {
 			parsed.push(["function", functions[c()]]);
 		}
 		
 		if(c() in nonreturn) {
-			parsed.push(["function", nonreturn[c()]]);
+			parsed.push(["nonreturn", nonreturn[c()]]);
 		}
 		
 		pointer += 1;
@@ -124,15 +172,16 @@ var execute = function(code) {
 		}
 		
 		if (c()[0] == "nonreturn") {
-			c()[1];
+			c()[1]();
 		}
 		
 		pointer += 1;
-		
+		console.log(stack);
 	}
 }
 
 var run = function(code) {
 	var instructions = parse(code);
+	console.log(instructions);
 	execute(instructions);
 }
