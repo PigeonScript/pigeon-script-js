@@ -76,6 +76,14 @@ var mod = function() {
 	return b % a;
 }
 
+var factorial = function() {
+	i = 1
+	for(n=1; n<=pop(); n++) {
+		i *= n;
+	}
+	return i
+}
+
 var print = function() {
 	output(pop());
 }
@@ -93,7 +101,8 @@ var functions = {
 	'*':mult,
 	'/':div,
 	'^':exp,
-	'%':mod
+	'%':mod,
+	'!':factorial
 };
 
 var nonreturn = {
