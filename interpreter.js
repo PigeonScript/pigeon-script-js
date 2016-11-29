@@ -77,11 +77,17 @@ var mod = function() {
 }
 
 var factorial = function() {
-	i = 1
+	i = 1;
 	for(n=1; n<=pop(); n++) {
 		i *= n;
 	}
-	return i
+	return i;
+}
+
+var indice = function() {
+	var index = pop();
+	var item = pop();
+	return item[index];
 }
 
 var print = function() {
@@ -102,7 +108,8 @@ var functions = {
 	'/':div,
 	'^':exp,
 	'%':mod,
-	'!':factorial
+	'!':factorial,
+	'~':indice
 };
 
 var nonreturn = {
