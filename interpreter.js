@@ -76,6 +76,24 @@ var mod = function() {
 	return b % a;
 }
 
+var factorial = function() {
+	i = 1;
+	for(n=1; n<=pop(); n++) {
+		i *= n;
+	}
+	return i;
+}
+
+var indice = function() {
+	var index = pop();
+	var item = pop();
+	return item[index];
+}
+
+var length = function() {
+	return pop().length;
+}
+
 var print = function() {
 	output(pop());
 }
@@ -93,7 +111,10 @@ var functions = {
 	'*':mult,
 	'/':div,
 	'^':exp,
-	'%':mod
+	'%':mod,
+	'!':factorial,
+	'~':indice,
+	'l':length
 };
 
 var nonreturn = {
@@ -181,6 +202,11 @@ var execute = function(code) {
 }
 
 var run = function(code) {
+	
+	if(((code.split('"').length-1) % 2)!=0) {
+		code = '"' + code;
+	}
+	
 	var instructions = parse(code);
 	console.log(instructions);
 	execute(instructions);
