@@ -181,6 +181,11 @@ var execute = function(code) {
 }
 
 var run = function(code) {
+	
+	if(((code.split('"').length-1) % 2)!=0) {
+		code = '"' + code;
+	}
+	
 	var instructions = parse(code);
 	console.log(instructions);
 	execute(instructions);
