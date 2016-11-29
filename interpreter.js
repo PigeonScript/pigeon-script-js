@@ -90,6 +90,10 @@ var indice = function() {
 	return item[index];
 }
 
+var length = function() {
+	return pop().length;
+}
+
 var print = function() {
 	output(pop());
 }
@@ -109,7 +113,8 @@ var functions = {
 	'^':exp,
 	'%':mod,
 	'!':factorial,
-	'~':indice
+	'~':indice,
+	'l':length
 };
 
 var nonreturn = {
