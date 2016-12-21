@@ -1,4 +1,4 @@
-function strip(str, remove) {
+var strip = function(str, remove) {
 	// I needed this python feature...
   while (str.length > 0 && remove.indexOf(str.charAt(0)) != -1) {
     str = str.substr(1);
@@ -7,17 +7,17 @@ function strip(str, remove) {
     str = str.substr(0, str.length - 1);
   }
   return str;
-}
+};
 
 var stack = [];
 
-var toNum = function(input){
+var toNum = function(input) {
 	if(isNaN(Number(input))) {
 		return input;
 	} else {
 		return Number(input);
 	}
-}
+};
 
 var pop = function() {
 	if(stack.length) {
@@ -25,96 +25,93 @@ var pop = function() {
 	} else {
 		return toNum(prompt("Value Required"));
 	}
-}
+};
 
-var sum = function() {
+var arth = {
+  sum : function() {
 	if(stack.length > 1) {
 		return pop() + pop();
 	} else {
 		return pop() * 2;
 	}
-}
-
-var sub = function() {
+},
+  sub : function() {
 	if(stack.length > 1) {
 		return -1 * (pop() - pop());
 	} else {
 		return -1 * pop();
 	}
-}
-
-var mult = function() {
+},
+  mult : function() {
 	if(stack.length) {
 		return pop() * pop();
   } else {
 		return pow(pop(), 2);
 	}
-}
-
-var div = function() {
+},
+  div : function() {
   if(stack.length) {
     return 1 / (pop() / pop());
 	} else {
     return 1 / pop();
 	}
-}
-
-var exp = function() {
+},
+  exp : function() {
 	if(stack.length > 1) {
 		var a = pop();
 		var b = pop();
-		return pow(b, a);
+		return Math.pow(b, a);
 	} else {
 		var a = pop();
-		return pow(a, a);
+		return Math.pow(a, a);
 	}
-}
-
-var mod = function() {
+},
+  mod : function() {
 	a = pop();
 	b = pop();
 	return b % a;
-}
-
-var factorial = function() {
+},
+  factorial : function() {
 	i = 1;
-	for(n=1; n<=pop(); n++) {
+	p = pop();
+	for(n=1; n<=p; n++) {
 		i *= n;
 	}
 	return i;
 }
+};
 
 var indice = function() {
 	var index = pop();
 	var item = pop();
 	return item[index];
-}
+};
 
 var length = function() {
 	return pop().length;
-}
+};
 
 var print = function() {
 	output(pop());
-}
+};
 
 var output = function(data) {
 	var ul = document.getElementById("list");
 	var li = document.createElement("li");
 	li.appendChild(document.createTextNode(data));
 	ul.appendChild(li);
-}
+};
 
 var functions = {
-	'+':sum,
-	'-':sub,
-	'*':mult,
-	'/':div,
-	'^':exp,
-	'%':mod,
-	'!':factorial,
-	'~':indice,
-	'l':length
+	'+' : arth.sum,
+	'-' : arth.sub,
+	'*' : arth.mult,
+	'/' : arth.div,
+	'^' : arth.exp,
+	'%' : arth.mod,
+	'!' : arth.factorial,
+	'~' : indice,
+	'l' : length
 };
 
 var nonreturn = {
@@ -173,7 +170,7 @@ var parse = function(code) {
 
 	}
 	return parsed;
-}
+};
 
 var execute = function(code) {
 	
@@ -197,9 +194,16 @@ var execute = function(code) {
 		}
 		
 		pointer += 1;
-		console.log(stack);
+		if (stack.length) {
+		  console.log(stack);
+		}
 	}
-}
+	if (stack.length) {
+	  for (var i = 0; i < stack.length; i++) {
+	    console.log(stack[i]);
+	  }
+	}
+};
 
 var run = function(code) {
 	
@@ -210,4 +214,4 @@ var run = function(code) {
 	var instructions = parse(code);
 	console.log(instructions);
 	execute(instructions);
-}
+};
