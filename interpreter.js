@@ -46,7 +46,7 @@ var arth = {
 	if(stack.length) {
 		return pop() * pop();
   } else {
-		return pow(pop(), 2);
+		return Math.pow(pop(), 2);
 	}
 },
   div : function() {
